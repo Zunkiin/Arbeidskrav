@@ -10,6 +10,7 @@ include("db-tilkobling.php");  // Kobler til database-serveren
 <head>
   <meta charset="UTF-8">
   <title>Slett klasse</title>
+  <script src="funksjoner.js"></script> 
 </head>
 <body>
 

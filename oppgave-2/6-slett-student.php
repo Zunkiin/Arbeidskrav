@@ -11,37 +11,33 @@ include("db-tilkobling.php");  // Kobler til database-serveren og velger riktig 
 <head>
   <meta charset="UTF-8"> 
   <title>Slett student</title>
+  <script src="funksjoner.js"></script> 
 </head>
 <body>
 
 <h3>Slett student</h3>
 
 <!-- Skjema for å velge hvilken student som skal slettes -->
-<form method="post" action="" id="slettStudentSkjema" name="slettStudentSkjema">
+<form method="post" action="" id="slettStudentSkjema" name="slettStudentSkjema" onsubmit="return bekreftSletting();">
   Velg student:
   <select name="brukernavn" id="brukernavn">
     <option value="">-- Velg student --</option>
     <?php
       /* Henter alle registrerte studenter slik at de vises i nedtrekkslisten */
+     include("db-tilkobling.php");
       $sqlSetning = "SELECT * FROM student ORDER BY brukernavn;";
-      $sqlResultat = mysqli_query($db, $sqlSetning) or die("Ikke mulig å hente studenter fra databasen.");
+      $sqlResultat = mysqli_query($db, $sqlSetning) or die("Ikke mulig å hente studenter fra databasen");
 
-      $antallRader = mysqli_num_rows($sqlResultat);
-
-      /* Legger hver student som et valg i listen */
-      for ($r = 1; $r <= $antallRader; $r++) {
-        $rad = mysqli_fetch_array($sqlResultat);
+      while ($rad = mysqli_fetch_array($sqlResultat)) {
         $brukernavn = $rad["brukernavn"];
         $fornavn = $rad["fornavn"];
         $etternavn = $rad["etternavn"];
-
         print("<option value='$brukernavn'>$brukernavn - $fornavn $etternavn</option>");
       }
     ?>
   </select>
   <br><br>
-
-  <!-- Knapp for å slette valgt student -->
+  <!-- knapp for å slette student -->
   <input type="submit" value="Slett student" id="slettStudentKnapp" name="slettStudentKnapp">
 </form>
 
