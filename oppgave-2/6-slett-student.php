@@ -11,7 +11,7 @@ include("db-tilkobling.php");  // Kobler til database-serveren og velger riktig 
 <head>
   <meta charset="UTF-8"> 
   <title>Slett student</title>
-  <script src="funksjoner.js"></script> 
+  <script src="funksjon.js"></script> 
 </head>
 <body>
 
