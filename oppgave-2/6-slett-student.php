@@ -6,40 +6,42 @@
 include("db-tilkobling.php");  // Kobler til database-serveren og velger riktig database
 ?>
 
+<?php
+include("db-tilkobling.php");
+?>
 <!DOCTYPE html>
 <html lang="no">
 <head>
-  <meta charset="UTF-8"> 
+  <meta charset="UTF-8">
   <title>Slett student</title>
-  <script src="funksjoner.js"></script> 
+  <script src="funksjoner.js"></script> <!-- må peke riktig -->
 </head>
 <body>
 
 <h3>Slett student</h3>
 
-<!-- Skjema for å velge hvilken student som skal slettes -->
-<form method="post" action="" id="slettStudentSkjema" name="slettStudentSkjema" onsubmit="return bekreftSletting();">
-  Velg student:
-  <select name="brukernavn" id="brukernavn">
+<form method="post" action="" onsubmit="return bekreftSletting('studenten');">
+  <select name="brukernavn">
     <option value="">-- Velg student --</option>
     <?php
-      /* Henter alle registrerte studenter slik at de vises i nedtrekkslisten */
-     include("db-tilkobling.php");
-      $sqlSetning = "SELECT * FROM student ORDER BY brukernavn;";
-      $sqlResultat = mysqli_query($db, $sqlSetning) or die("Ikke mulig å hente studenter fra databasen");
-
-      while ($rad = mysqli_fetch_array($sqlResultat)) {
-        $brukernavn = $rad["brukernavn"];
-        $fornavn = $rad["fornavn"];
-        $etternavn = $rad["etternavn"];
-        print("<option value='$brukernavn'>$brukernavn - $fornavn $etternavn</option>");
+      $sql = "SELECT * FROM student ORDER BY brukernavn;";
+      $res = mysqli_query($db,$sql) or die("Feil");
+      while ($row = mysqli_fetch_array($res)) {
+        $bruk = $row['brukernavn'];
+        $f = $row['fornavn'];
+        $e = $row['etternavn'];
+        echo "<option value='$bruk'>$bruk - $f $e</option>";
       }
     ?>
   </select>
-  <br><br>
-  <!-- knapp for å slette student -->
-  <input type="submit" value="Slett student" id="slettStudentKnapp" name="slettStudentKnapp">
+  <input type="submit" name="slettStudentKnapp" value="Slett student">
 </form>
+
+<?php
+if (isset($_POST['slettStudentKnapp'])) {
+  // behandling...
+}
+?>
 
 <?php
 /* PHP kode som kjøres når brukeren trykker på "Slett student"-knappen */
