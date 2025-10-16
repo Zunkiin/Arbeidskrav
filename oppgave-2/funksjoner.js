@@ -3,6 +3,7 @@
 */
 
 // Viser en advarsel før sletting av student eller klasse
-function bekreftSletting() {
-  return confirm("Er du sikker på at du vil slette dette?");
-}
+function bekreft()
+{
+      return confirm ("Er du sikker ?");
+} 

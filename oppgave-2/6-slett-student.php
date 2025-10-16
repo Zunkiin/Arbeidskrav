@@ -18,7 +18,7 @@ include("db-tilkobling.php");  // Kobler til database-serveren og velger riktig 
 <h3>Slett student</h3>
 
 <!-- Skjema for å velge hvilken student som skal slettes -->
-<form method="post" action="" id="slettStudentSkjema" name="slettStudentSkjema" onsubmit="return bekreftSletting();">
+<form method="post" action="" id="slettStudentSkjema" name="slettStudentSkjema" onsubmit="return bekreft();">
   Velg student:
   <select name="brukernavn" id="brukernavn">
     <option value="">-- Velg student --</option>
