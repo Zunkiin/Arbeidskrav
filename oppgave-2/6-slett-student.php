@@ -1,30 +1,24 @@
 <?php
-/* slett-student.php
-   Programmet lar brukeren velge en student og slette den fra databasen.
-*/
-
-include("db-tilkobling.php");  // Kobler til database-serveren og velger riktig database
+/* slett-student.php */
+include("db-tilkobling.php");
 ?>
 
 <!DOCTYPE html>
 <html lang="no">
 <head>
-  <meta charset="UTF-8"> 
+  <meta charset="UTF-8">
   <title>Slett student</title>
-  <script src="funksjoner.js"></script> 
+  <script src="funksjoner.js"></script>
 </head>
 <body>
 
 <h3>Slett student</h3>
 
-<!-- Skjema for å velge hvilken student som skal slettes -->
-<form method="post" action="" id="slettStudentSkjema" name="slettStudentSkjema" onsubmit="return bekreft();">
+<form method="post" action="" id="slettStudentSkjema" name="slettStudentSkjema" onsubmit="return bekreft('studenten');">
   Velg student:
   <select name="brukernavn" id="brukernavn">
     <option value="">-- Velg student --</option>
     <?php
-      /* Henter alle registrerte studenter slik at de vises i nedtrekkslisten */
-     include("db-tilkobling.php");
       $sqlSetning = "SELECT * FROM student ORDER BY brukernavn;";
       $sqlResultat = mysqli_query($db, $sqlSetning) or die("Ikke mulig å hente studenter fra databasen");
 
@@ -37,12 +31,11 @@ include("db-tilkobling.php");  // Kobler til database-serveren og velger riktig 
     ?>
   </select>
   <br><br>
-  <!-- knapp for å slette student -->
+
   <input type="submit" value="Slett student" id="slettStudentKnapp" name="slettStudentKnapp">
 </form>
 
 <?php
-/* PHP kode som kjøres når brukeren trykker på "Slett student"-knappen */
 if (isset($_POST["slettStudentKnapp"])) {
   $brukernavn = $_POST["brukernavn"];
 
@@ -50,7 +43,6 @@ if (isset($_POST["slettStudentKnapp"])) {
     print("Du må velge en student for å slette.");
   } 
   else {
-    /* Sjekker om studenten faktisk finnes i databasen */
     $sqlSetning = "SELECT * FROM student WHERE brukernavn='$brukernavn';";
     $sqlResultat = mysqli_query($db, $sqlSetning) or die("Feil ved henting av data.");
 
@@ -58,7 +50,6 @@ if (isset($_POST["slettStudentKnapp"])) {
       print("Studenten finnes ikke i databasen.");
     } 
     else {
-      /* Sletter studenten */
       $sqlSetning = "DELETE FROM student WHERE brukernavn='$brukernavn';";
       mysqli_query($db, $sqlSetning) or die("Feil ved sletting.");
 
