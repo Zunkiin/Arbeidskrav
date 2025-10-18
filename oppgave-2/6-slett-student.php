@@ -7,7 +7,7 @@ include("db-tilkobling.php");
 <head>
   <meta charset="UTF-8">
   <title>Slett student</title>
-  <script src="funksjoner.js"></script>
+  <script src="funksjoner.js"></script> 
 </head>
 <body>
 

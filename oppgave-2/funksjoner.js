@@ -1,4 +1,5 @@
-/* funksjoner.js - brukes til bekreftelse ved sletting */
+alert("funksjoner.js er lastet!");
+
 
 function bekreft() {
   return confirm("Er du sikker på at du vil slette denne?");
